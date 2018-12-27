@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -32,6 +33,7 @@ import com.clfsjkj.govcar.CostQueryReplyListActivity;
 import com.clfsjkj.govcar.DemoMainActivity;
 import com.clfsjkj.govcar.DispatchedCarsListActivity;
 import com.clfsjkj.govcar.DriverOrderListActivity;
+import com.clfsjkj.govcar.DriverRecordListActivity;
 import com.clfsjkj.govcar.EmergencyDispatchCarActivity;
 import com.clfsjkj.govcar.NeedCarBackListActivity;
 import com.clfsjkj.govcar.NeedChangeActivity;
@@ -51,7 +53,12 @@ import com.clfsjkj.govcar.index.FunctionItem;
 import com.clfsjkj.govcar.index.OnItemClickListener;
 import com.clfsjkj.govcar.index.SFUtils;
 import com.clfsjkj.govcar.index.SpaceItemDecoration;
+import com.clfsjkj.govcar.utils.AppSharePreferenceMgr;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +76,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     private FunctionBlockAdapter blockAdapter;
     private FunctionAdapter functionAdapter;
     private GridLayoutManager gridManager;
+    private LinearLayout ll_often_use;
 
     private List<String> scrollTab = new ArrayList<>();
 
@@ -119,6 +127,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     isEdit = false;
                     blockAdapter.setEdit(isEdit);
                     functionAdapter.setEdit(isEdit);
+                    //点击保存按钮后，将常用功能的数据保存至本地，这个数据初始化界面的时候再加载
+//                    Gson gson = new Gson();
+//                    String data = gson.toJson(selData);
+//                    AppSharePreferenceMgr.put(getActivity(),"selData",data);
+                    sfUtils = new SFUtils(mContext);
+                    sfUtils.saveSelectFunctionItem(selData);
                 }
             }
         });
@@ -131,13 +145,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         submit.setText("编辑");
         recyclerViewExist = (RecyclerView) view.findViewById(R.id.recyclerViewExist);
         horizonLScrollView = (HorizontalScrollView) view.findViewById(R.id.horizonLScrollView);
-//        horizonLScrollView.setVisibility(View.GONE);
+        ll_often_use = view.findViewById(R.id.ll_often_use);
         rg_tab = (RadioGroup) view.findViewById(R.id.rg_tab);
         recyclerViewAll = (RecyclerView) view.findViewById(R.id.recyclerViewAll);
         sfUtils = new SFUtils(mContext);
+        //所有功能
         allData = sfUtils.getAllFunctionWithState();//修改为通过网络获取数组，而后缓存到本地
         selData = sfUtils.getSelectFunctionItem();//修改为通过网络获取数组，而后缓存到本地
-
         blockAdapter = new FunctionBlockAdapter(mContext, selData);
         recyclerViewExist.setLayoutManager(new GridLayoutManager(mContext, 4));
         recyclerViewExist.setAdapter(blockAdapter);
@@ -220,102 +234,109 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     case "申请用车":
                         it = new Intent(mContext, ApplyCarActivity.class);
                         //从申请用车进去的，需要判断用车时间不能在此刻之前
-                        it.putExtra("needJudgeUseCarTime",true);
+                        it.putExtra("needJudgeUseCarTime", true);
+                        it.putExtra("title", "申请用车");
                         startActivity(it);
                         break;
                     case "申请记录":
                         it = new Intent(mContext, ApplyRecordListActivity.class);
+                        it.putExtra("title", "申请记录");
                         startActivity(it);
                         break;
                     case "订单补录":
                         //从申请用车进去的，不需要判断用车时间不能在此刻之前
                         it = new Intent(mContext, ApplyCarActivity.class);
-                        it.putExtra("needJudgeUseCarTime",false);
+                        it.putExtra("needJudgeUseCarTime", false);
+                        it.putExtra("title", "订单补录");
                         startActivity(it);
                         break;
                     case "用车评价":
                         it = new Intent(mContext, UserEvaluationListActivity.class);
+                        it.putExtra("title", "用车评价");
                         startActivity(it);
                         break;
                     case "费用汇总":
                         it = new Intent(mContext, CostAggregationActivity.class);
+                        it.putExtra("title", "费用汇总");
                         startActivity(it);
                         break;
                     case "质疑回复":
                         it = new Intent(mContext, CostQueryReplyListActivity.class);
+                        it.putExtra("title", "质疑回复");
                         startActivity(it);
                         break;
                     //****************************审批人*****************************
                     case "用车审批":
                         it = new Intent(mContext, ApplayOrderDetailActivity.class);
-                        it.putExtra("isShowBtnGroup",true);
+                        it.putExtra("isShowBtnGroup", true);
                         startActivity(it);
                         break;
                     case "审批记录":
                         it = new Intent(mContext, ApprovalRecordListActivity.class);
-                        it.putExtra("title","审批记录");
+                        it.putExtra("title", "审批记录");
                         startActivity(it);
                         break;
                     case "驳回记录":
                         it = new Intent(mContext, ApprovalRecordListActivity.class);
-                        it.putExtra("title","驳回记录");
+                        it.putExtra("title", "驳回记录");
                         startActivity(it);
                         break;
                     //****************************调度员*****************************
                     case "需要派车":
                         it = new Intent(mContext, NeedDispatchCarsListActivity.class);
-                        it.putExtra("title","需要派车");
+                        it.putExtra("title", "需要派车");
                         startActivity(it);
                         break;
                     case "需要归队":
                         it = new Intent(mContext, NeedCarBackListActivity.class);
-                        it.putExtra("title","需要归队");
+                        it.putExtra("title", "需要归队");
                         startActivity(it);
                         break;
                     case "需要变更":
                         it = new Intent(mContext, NeedChangeActivity.class);
-                        it.putExtra("title","需要变更");
+                        it.putExtra("title", "需要变更");
                         startActivity(it);
                         break;
                     case "派车记录":
                         it = new Intent(mContext, DispatchedCarsListActivity.class);
-                        it.putExtra("title","派车记录");
+                        it.putExtra("title", "派车记录");
                         startActivity(it);
                         break;
                     case "归队记录":
                         it = new Intent(mContext, CarBackListActivity.class);
-                        it.putExtra("title","归队记录");
+                        it.putExtra("title", "归队记录");
                         startActivity(it);
                         break;
                     case "订单变更":
                         it = new Intent(mContext, OrderChangeActivity.class);
-                        it.putExtra("title","订单变更");
+                        it.putExtra("title", "订单变更");
                         startActivity(it);
                         break;
                     case "订单管理":
                         it = new Intent(mContext, OrderManageListActivity.class);
-                        it.putExtra("title","订单管理");
+                        it.putExtra("title", "订单管理");
                         startActivity(it);
                         break;
                     case "应急派车":
                         it = new Intent(mContext, EmergencyDispatchCarActivity.class);
-                        it.putExtra("title","应急派车");
+                        it.putExtra("title", "应急派车");
                         startActivity(it);
                         break;
                     //****************************驾驶员*****************************
                     case "任务列表":
                         it = new Intent(mContext, DriverOrderListActivity.class);
-                        it.putExtra("title","任务列表");
+                        it.putExtra("title", "任务列表");
                         startActivity(it);
                         break;
                     case "驾驶记录":
-                        it = new Intent(mContext, DemoMainActivity.class);
-                        it.putExtra("title","驾驶记录");
+                        it = new Intent(mContext, DriverRecordListActivity.class);
+                        it.putExtra("title", "驾驶记录");
                         startActivity(it);
                         break;
+                    //****************************管理员*****************************
                     case "账号审批":
                         it = new Intent(mContext, RoutePlanDemo.class);
-                        it.putExtra("title","账号审批");
+                        it.putExtra("title", "账号审批");
                         startActivity(it);
                         break;
                     default:
@@ -498,15 +519,15 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 //            if (isDrag) {  //拖动过程中
-                int position = gridManager.findFirstVisibleItemPosition();
-                if (position > 0) {
-                    for (int i = 0; i < position + 1; i++) {
-                        if (allData.get(i).isTitle) {
-                            currentTab = allData.get(i).name;
-                        }
+            int position = gridManager.findFirstVisibleItemPosition();
+            if (position > 0) {
+                for (int i = 0; i < position + 1; i++) {
+                    if (allData.get(i).isTitle) {
+                        currentTab = allData.get(i).name;
                     }
-                    scrollTab(currentTab);
                 }
+                scrollTab(currentTab);
+            }
 //            }
         }
     };

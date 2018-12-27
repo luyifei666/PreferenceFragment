@@ -22,6 +22,7 @@ public class CostAggregationActivity extends BaseActivity {
     ExpandableListView expandListView;
     private Context mContext;
     private MyExtendableListViewAdapter adapter;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class CostAggregationActivity extends BaseActivity {
         setContentView(R.layout.activity_cost_aggregation);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
         initMyToolBar();
         setStatusBarFullTransparent();
         setFitSystemWindow(true);
@@ -36,7 +38,7 @@ public class CostAggregationActivity extends BaseActivity {
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "费用汇总", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

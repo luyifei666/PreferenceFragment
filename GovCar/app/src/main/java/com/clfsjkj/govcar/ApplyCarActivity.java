@@ -65,6 +65,7 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
+    private String mTitle;
     private MClearEditText mEditText;
     private TextView mTextView;
     private ImageView mImageViewAdd, mImageViewDel;
@@ -117,6 +118,7 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
         ButterKnife.bind(this);
         mContext = this;
         needJudgeUseCarTime = getIntent().getBooleanExtra("needJudgeUseCarTime", false);
+        mTitle = getIntent().getStringExtra("title");
         Log.e("aaa", "needJudgeUseCarTime = " + needJudgeUseCarTime);
         if (!needJudgeUseCarTime) {
             mBtnCarApply.setText("补录订单");
@@ -157,7 +159,7 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "申请用车", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -569,9 +571,9 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
                 }
 
                 for (int i = 0; i < pathList.size(); i++) {
-                    Log.e("aaa","遍历pathList的数据  getLocName = " + pathList.get(i).getLocName());
-                    Log.e("aaa","遍历pathList的数据  getLatitude = " + pathList.get(i).getLatitude());
-                    Log.e("aaa","遍历pathList的数据  getLongitude = " + pathList.get(i).getLongitude());
+                    Log.e("aaa", "遍历pathList的数据  getLocName = " + pathList.get(i).getLocName());
+                    Log.e("aaa", "遍历pathList的数据  getLatitude = " + pathList.get(i).getLatitude());
+                    Log.e("aaa", "遍历pathList的数据  getLongitude = " + pathList.get(i).getLongitude());
                 }
 
                 break;

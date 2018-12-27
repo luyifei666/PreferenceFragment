@@ -44,13 +44,15 @@ public class DriverOrderListActivity extends BaseActivity implements BaseQuickAd
     private int mCurrentCounter = 0;
     private boolean isErr;
     private boolean mLoadMoreEndGone = false;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_oeder_list);
+        setContentView(R.layout.activity_driver_order_list);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
@@ -64,7 +66,7 @@ public class DriverOrderListActivity extends BaseActivity implements BaseQuickAd
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "我的任务", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

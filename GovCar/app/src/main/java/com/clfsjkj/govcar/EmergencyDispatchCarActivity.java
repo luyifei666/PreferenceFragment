@@ -111,6 +111,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
     LinearLayout llSelect;
     private SelectedCarsAdapter mSelectedAdapter;
     private List<CarAndDriverBean> data;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
         setContentView(R.layout.activity_emergency_dispatch_car);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
 //        needJudgeUseCarTime = getIntent().getBooleanExtra("needJudgeUseCarTime", false);
 //        Log.e("aaa", "needJudgeUseCarTime = " + needJudgeUseCarTime);
 //        if (!needJudgeUseCarTime) {
@@ -133,7 +135,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "应急派车", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

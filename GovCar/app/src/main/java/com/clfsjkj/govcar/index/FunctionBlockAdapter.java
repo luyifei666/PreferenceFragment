@@ -110,6 +110,10 @@ public class FunctionBlockAdapter extends RecyclerView.Adapter<FunctionBlockAdap
         if (fromPosition < data.size() && targetPosition < data.size()) {
             Collections.swap(data, fromPosition, targetPosition);
             notifyItemMoved(fromPosition, targetPosition);
+
+            //移动后保存数据
+            SFUtils sfUtils = new SFUtils(context);
+            sfUtils.saveSelectFunctionItem(data);
         }
     }
 

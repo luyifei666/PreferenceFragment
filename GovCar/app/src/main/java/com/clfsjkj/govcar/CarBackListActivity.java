@@ -44,6 +44,7 @@ public class CarBackListActivity extends BaseActivity implements BaseQuickAdapte
     private int mCurrentCounter = 0;
     private boolean isErr;
     private boolean mLoadMoreEndGone = false;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class CarBackListActivity extends BaseActivity implements BaseQuickAdapte
         setContentView(R.layout.activity_car_back_list);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
@@ -64,7 +66,7 @@ public class CarBackListActivity extends BaseActivity implements BaseQuickAdapte
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "归队记录", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

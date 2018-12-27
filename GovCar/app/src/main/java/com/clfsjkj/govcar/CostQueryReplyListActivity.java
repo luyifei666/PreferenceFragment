@@ -42,6 +42,7 @@ public class CostQueryReplyListActivity extends BaseActivity implements BaseQuic
     private int mCurrentCounter = 0;
     private boolean isErr;
     private boolean mLoadMoreEndGone = false;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class CostQueryReplyListActivity extends BaseActivity implements BaseQuic
         setContentView(R.layout.activity_cost_query_reply_list);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
         initMyToolBar();
         setStatusBarFullTransparent();
         setFitSystemWindow(true);
@@ -59,7 +61,7 @@ public class CostQueryReplyListActivity extends BaseActivity implements BaseQuic
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "质疑回复", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

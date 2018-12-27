@@ -70,6 +70,7 @@ public class ApplayOrderDetailActivity extends BaseActivity {
     private ArrayList<EnclosureBean> mDataList;
     private ArrayList<TimeLineBean> mTimeLineList;
     private boolean isShowBtnGroup;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class ApplayOrderDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_applay_order_detail);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
         isShowBtnGroup = getIntent().getBooleanExtra("isShowBtnGroup", false);
         if (isShowBtnGroup) {
             btnStatus.setVisibility(View.VISIBLE);
@@ -136,7 +138,7 @@ public class ApplayOrderDetailActivity extends BaseActivity {
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "订单详情", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

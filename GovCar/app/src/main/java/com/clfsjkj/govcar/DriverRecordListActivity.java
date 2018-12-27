@@ -25,7 +25,7 @@ import com.clfsjkj.govcar.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ApplyRecordListActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class DriverRecordListActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.right_btn)
     Button mRightBtn;
     @BindView(R.id.right_text)
@@ -49,7 +49,7 @@ public class ApplyRecordListActivity extends BaseActivity implements BaseQuickAd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_apply_record);
+        setContentView(R.layout.activity_driver_record_list);
         ButterKnife.bind(this);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
@@ -87,7 +87,7 @@ public class ApplyRecordListActivity extends BaseActivity implements BaseQuickAd
                 mLoadMoreEndGone = true;
                 pullToRefreshAdapter.setLoadMoreView(new CustomLoadMoreView());
                 mRvList.setAdapter(pullToRefreshAdapter);
-                Toast.makeText(ApplyRecordListActivity.this, "change complete", Toast.LENGTH_LONG).show();
+                Toast.makeText(DriverRecordListActivity.this, "change complete", Toast.LENGTH_LONG).show();
             }
         });
         pullToRefreshAdapter.addHeaderView(headView);
@@ -109,7 +109,7 @@ public class ApplyRecordListActivity extends BaseActivity implements BaseQuickAd
                     pullToRefreshAdapter.loadMoreComplete();
                 } else {
                     isErr = true;
-                    Toast.makeText(ApplyRecordListActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
+                    Toast.makeText(DriverRecordListActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
                     pullToRefreshAdapter.loadMoreFail();
 
                 }
@@ -145,9 +145,8 @@ public class ApplyRecordListActivity extends BaseActivity implements BaseQuickAd
             @Override
             public void onSimpleItemClick(final BaseQuickAdapter adapter, final View view, final int position) {
                 Intent it;
-                it = new Intent(ApplyRecordListActivity.this, ApplayOrderDetailActivity.class);
-                it.putExtra("isShowBtnGroup",false);
-                startActivity(it);
+//                it = new Intent(DriverRecordListActivity.this, DemoMainActivity.class);
+//                startActivity(it);
 
             }
         });

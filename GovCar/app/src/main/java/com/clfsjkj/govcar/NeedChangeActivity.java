@@ -57,6 +57,7 @@ public class NeedChangeActivity extends BaseActivity {
     private String addrDes;//地址
     private Context mContext;
     private TimePickerView pvTime;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class NeedChangeActivity extends BaseActivity {
         setContentView(R.layout.activity_need_change);
         ButterKnife.bind(this);
         mContext = this;
-//        mTitle = getIntent().getStringExtra("title");
+        mTitle = getIntent().getStringExtra("title");
         btnStatus.setVisibility(View.VISIBLE);
         btnReject.setVisibility(View.GONE);
         btnPass.setVisibility(View.VISIBLE);
@@ -73,7 +74,7 @@ public class NeedChangeActivity extends BaseActivity {
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "需要变更", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -295,6 +295,10 @@
             android:name=".FeedBackActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DriverRecordListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

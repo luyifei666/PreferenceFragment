@@ -46,6 +46,7 @@ public class UserEvaluationListActivity extends BaseActivity implements BaseQuic
     private int mCurrentCounter = 0;
     private boolean isErr;
     private boolean mLoadMoreEndGone = false;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class UserEvaluationListActivity extends BaseActivity implements BaseQuic
         setContentView(R.layout.activity_user_evaluation_list);
         ButterKnife.bind(this);
         mContext = this;
+        mTitle = getIntent().getStringExtra("title");
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
@@ -65,7 +67,7 @@ public class UserEvaluationListActivity extends BaseActivity implements BaseQuic
     }
 
     private void initMyToolBar() {
-        initToolBar(mToolbar, "用车评价", R.drawable.gank_ic_back_white);
+        initToolBar(mToolbar, mTitle, R.drawable.gank_ic_back_white);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
