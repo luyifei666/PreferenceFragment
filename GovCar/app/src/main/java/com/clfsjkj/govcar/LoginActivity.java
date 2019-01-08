@@ -28,10 +28,15 @@ import com.clfsjkj.govcar.utils.AndroidBug5497Workaround;
 import com.clfsjkj.govcar.utils.RxAnimationTool;
 import com.clfsjkj.govcar.utils.RxBarTool;
 import com.clfsjkj.govcar.utils.RxKeyboardTool;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -185,6 +190,26 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
                 RxKeyboardTool.hideSoftInput(LoginActivity.this);
                 //这里做一个服务器的用户名和密码判断
+                OkHttpUtils
+                        .get()
+                        .url("http://apis.juhe.cn/mobile/get")
+                        .addParam("phone","17608755277")
+                        .addParam("key","6a043f9828637a24dba692b27b57ad14")
+                        .build()
+                        .execute(new StringCallback()
+                        {
+                            @Override
+                            public void onError(Call call, Response response, Exception e, int id) {
+                                Log.e("login","onError--- " + response);
+                            }
+
+                            @Override
+                            public void onResponse(String response, int id) {
+                                Log.e("login","onResponse--- response:" + response);
+                                Log.e("login","onResponse--- id=" + id);
+                            }
+                        });
+
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(it);
                 finish();

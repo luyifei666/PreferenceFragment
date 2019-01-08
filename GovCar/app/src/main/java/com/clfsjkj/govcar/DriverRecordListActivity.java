@@ -145,8 +145,8 @@ public class DriverRecordListActivity extends BaseActivity implements BaseQuickA
             @Override
             public void onSimpleItemClick(final BaseQuickAdapter adapter, final View view, final int position) {
                 Intent it;
-//                it = new Intent(DriverRecordListActivity.this, DemoMainActivity.class);
-//                startActivity(it);
+                it = new Intent(DriverRecordListActivity.this, CarBackActivity.class);
+                startActivity(it);
 
             }
         });

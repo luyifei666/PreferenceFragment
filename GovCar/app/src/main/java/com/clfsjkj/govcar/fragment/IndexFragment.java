@@ -28,6 +28,7 @@ import com.clfsjkj.govcar.ApplyCarActivity;
 import com.clfsjkj.govcar.ApplyRecordListActivity;
 import com.clfsjkj.govcar.ApprovalRecordListActivity;
 import com.clfsjkj.govcar.CarBackListActivity;
+import com.clfsjkj.govcar.CarHistoryPathActivity;
 import com.clfsjkj.govcar.CostAggregationActivity;
 import com.clfsjkj.govcar.CostQueryReplyListActivity;
 import com.clfsjkj.govcar.DemoMainActivity;
@@ -337,6 +338,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
                     case "账号审批":
                         it = new Intent(mContext, RoutePlanDemo.class);
                         it.putExtra("title", "账号审批");
+                        startActivity(it);
+                        break;
+                    case "人员管理":
+                        it = new Intent(mContext, CarHistoryPathActivity.class);
+                        it.putExtra("title", "人员管理");
                         startActivity(it);
                         break;
                     default:
