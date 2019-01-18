@@ -2,8 +2,10 @@ package com.clfsjkj.govcar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,6 +21,8 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -173,9 +177,20 @@ public class NeedChangeActivity extends BaseActivity {
                 initEndTime();
                 pvTime.show(); //弹出自定义时间选择器
                 break;
-            case R.id.btn_reject:
-                break;
             case R.id.btn_pass:
+                SelectDialog.show(mContext, "确认提交？", "", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);
+                                finish();
+                            }
+                        }).start();
+                    }
+                });
                 break;
         }
     }

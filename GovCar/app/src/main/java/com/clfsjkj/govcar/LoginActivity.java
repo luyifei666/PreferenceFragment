@@ -188,6 +188,7 @@ public class LoginActivity extends BaseActivity {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressDialog("正在登陆");
                 RxKeyboardTool.hideSoftInput(LoginActivity.this);
                 //这里做一个服务器的用户名和密码判断
                 OkHttpUtils
@@ -205,6 +206,7 @@ public class LoginActivity extends BaseActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
+                                dissmissProgressDialog();
                                 Log.e("login","onResponse--- response:" + response);
                                 Log.e("login","onResponse--- id=" + id);
                             }

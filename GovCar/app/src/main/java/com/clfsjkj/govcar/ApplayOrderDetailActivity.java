@@ -2,11 +2,14 @@ package com.clfsjkj.govcar;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.clfsjkj.govcar.ItemAdapter.EnclosureAdapter;
@@ -27,13 +31,14 @@ import com.clfsjkj.govcar.bean.TimeLineBean;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.utils.ToastUtils;
 import com.kevin.photo_browse.ImageBrowseIntent;
+import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
+import com.kongzue.dialog.v2.InputDialog;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -210,7 +215,7 @@ public class ApplayOrderDetailActivity extends BaseActivity {
         recyclerViewTimeLine.setAdapter(timeLineAdapter);
     }
 
-    @OnClick({R.id.tv_car_use_contacts_tel, R.id.tv_car_user_tel})
+    @OnClick({R.id.tv_car_use_contacts_tel, R.id.tv_car_user_tel, R.id.btn_reject, R.id.btn_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_car_use_contacts_tel:
@@ -242,6 +247,43 @@ public class ApplayOrderDetailActivity extends BaseActivity {
                     // 有权限了，去放肆吧。
                     callPhone(tvCarUserTel.getText().toString());
                 }
+                break;
+            case R.id.btn_reject:
+                InputDialog.show(mContext, "请输入驳回信息", "", "确定", new InputDialogOkButtonClickListener() {
+                    @Override
+                    public void onClick(Dialog dialog, String inputText) {
+                        Toast.makeText(mContext, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+                    }
+                }, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                break;
+            case R.id.btn_pass:
+//                showProgressSuccess("完成");
+//                showProgressDialog();
+                SelectDialog.show(mContext, "确认审批通过吗?", "", "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+//                        Toast.makeText(mContext, "您点击了确定按钮", Toast.LENGTH_SHORT).show();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);;
+//                        dissmissProgressDialog();
+                                finish();
+                            }
+                        }).start();
+                    }
+                }, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(mContext, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
         }
     }
@@ -286,5 +328,4 @@ public class ApplayOrderDetailActivity extends BaseActivity {
 
         }
     }
-
 }

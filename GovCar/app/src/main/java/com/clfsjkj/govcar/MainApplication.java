@@ -11,6 +11,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.clfsjkj.govcar.alltextsize.PreferencesHelper;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.utils.Utils;
+import com.kongzue.dialog.v2.DialogSettings;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -18,6 +19,9 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+
+import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
+import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 
 
 public final class MainApplication extends Application {
@@ -28,10 +32,12 @@ public final class MainApplication extends Application {
     public static int maxImgCount = 8;               //允许选择图片最大数
     private PreferencesHelper ph;
     private static MainApplication instance;
+
     // 单例模式获取唯一的Application实例
     public static Application getInstance() {
         return instance.getApplication();
     }
+
     public static MainApplication getMyInstance() {
         return instance;
     }
@@ -58,6 +64,13 @@ public final class MainApplication extends Application {
 
         OkHttpUtils.initClient(okHttpClient);
         initImagePicker();
+        DialogSettings.use_blur = false;                 //设置是否启用模糊
+        /*
+         *  决定等待框、提示框以及iOS风格的对话框的模糊背景透明度（50-255）
+         */
+//        DialogSettings.blur_alpha = 200;
+        DialogSettings.style = STYLE_IOS;
+        DialogSettings.tip_theme = THEME_LIGHT;         //设置提示框主题为亮色主题
     }
 
 
@@ -105,21 +118,21 @@ public final class MainApplication extends Application {
         }
         return pi;
     }
+
     public PreferencesHelper getPreferencesHelper() {
         return ph;
     }
 
     /**
-     *
      * @return 获取字体缩放比例
      */
-    public float getFontScale(){
-        int currentIndex= ph.getValueInt("currentIndex",1);
-        return 1+currentIndex*0.1f;
+    public float getFontScale() {
+        int currentIndex = ph.getValueInt("currentIndex", 1);
+        return 1 + currentIndex * 0.1f;
     }
 
 
-    private Application getApplication(){
-        return  this;
+    private Application getApplication() {
+        return this;
     }
 }

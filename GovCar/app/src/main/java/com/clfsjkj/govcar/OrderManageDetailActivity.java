@@ -3,10 +3,12 @@ package com.clfsjkj.govcar;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,6 +31,8 @@ import com.clfsjkj.govcar.bean.TimeLineBean;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.utils.ToastUtils;
 import com.kevin.photo_browse.ImageBrowseIntent;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 
@@ -236,11 +240,11 @@ public class OrderManageDetailActivity extends BaseActivity {
         bean.setCarNum("云A00002");
         bean.setDriverName("张三2");
         data.add(bean);
-        adapter = new SelectedCarsAdapter(mContext, data,false);//是否可删除，否
+        adapter = new SelectedCarsAdapter(mContext, data, false);//是否可删除，否
         recyclerViewSelected.setAdapter(adapter);
     }
 
-    @OnClick({R.id.tv_car_use_contacts_tel, R.id.tv_car_user_tel})
+    @OnClick({R.id.tv_car_use_contacts_tel, R.id.tv_car_user_tel, R.id.btn_reject, R.id.btn_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_car_use_contacts_tel:
@@ -272,6 +276,38 @@ public class OrderManageDetailActivity extends BaseActivity {
                     // 有权限了，去放肆吧。
                     callPhone(tvCarUserTel.getText().toString());
                 }
+                break;
+            case R.id.btn_reject:
+                //撤销订单
+                SelectDialog.show(mContext, "确认撤销订单？", "", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);
+                                finish();
+                            }
+                        }).start();
+                    }
+                });
+                break;
+            case R.id.btn_pass:
+                //删除订单
+                SelectDialog.show(mContext, "确认删除订单？", "", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);
+                                finish();
+                            }
+                        }).start();
+                    }
+                });
                 break;
         }
     }

@@ -2,9 +2,11 @@ package com.clfsjkj.govcar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +39,7 @@ import com.clfsjkj.govcar.bean.CarAndDriverBean;
 import com.clfsjkj.govcar.customerview.MClearEditText;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.imageloader.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -123,7 +126,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
 //        needJudgeUseCarTime = getIntent().getBooleanExtra("needJudgeUseCarTime", false);
 //        Log.e("aaa", "needJudgeUseCarTime = " + needJudgeUseCarTime);
 //        if (!needJudgeUseCarTime) {
-            mBtnCarApply.setText("应急派车");
+        mBtnCarApply.setText("应急派车");
 //        }
         initMyToolBar();
         setStatusBarFullTransparent();
@@ -232,7 +235,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
         bean.setCarNum("云A00001");
         bean.setDriverName("张三");
         data.add(bean);
-        mSelectedAdapter = new SelectedCarsAdapter(mContext, data,true);//是否可删除，是
+        mSelectedAdapter = new SelectedCarsAdapter(mContext, data, true);//是否可删除，是
         recyclerViewSelected.setAdapter(mSelectedAdapter);
     }
 
@@ -483,7 +486,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
         return (int) (pxValue / scale + 0.5f);
     }
 
-    @OnClick({R.id.btn_car_start, R.id.btn_car_path, R.id.btn_car_destination, R.id.btn_car_apply, R.id.tv_start_time, R.id.tv_back_time,R.id.ll_select})
+    @OnClick({R.id.btn_car_start, R.id.btn_car_path, R.id.btn_car_destination, R.id.btn_car_apply, R.id.tv_start_time, R.id.tv_back_time, R.id.ll_select})
     public void onViewClicked(View view) {
         Intent it;
         switch (view.getId()) {
@@ -537,6 +540,7 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
                             Log.e("aaa", "mStartTime<mBackTime");
                         }
                     }
+                    return;
                 } else {
                     int res = mStartTime.compareTo(mBackTime);
                     if (res > 0) {
@@ -544,19 +548,34 @@ public class EmergencyDispatchCarActivity extends BaseActivity implements ImageP
                         Snackbar snackbar = Snackbar.make(mBtnCarApply, "回车时间不能小于出车时间", Snackbar.LENGTH_SHORT);
                         snackbar.getView().setBackgroundResource(R.color.colorPrimary);
                         snackbar.show();
+                        return;
                     } else if (res == 0) {
                         Log.e("aaa", "mStartTime=mBackTime");
                     } else {
                         Log.e("aaa", "mStartTime<mBackTime");
                     }
                 }
+                com.kongzue.dialog.v2.SelectDialog.show(mContext, "确认提交？", "", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);
+                                finish();
+                            }
+                        }).start();
+                    }
+                });
 
                 break;
             case R.id.ll_select:
                 //跳转到选择车辆页面
-                it = new Intent(EmergencyDispatchCarActivity.this,SelectCarActivity.class);
+                it = new Intent(EmergencyDispatchCarActivity.this, SelectCarActivity.class);
 //                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(it);;
+                startActivity(it);
+                ;
                 break;
         }
 

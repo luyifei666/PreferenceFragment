@@ -235,15 +235,8 @@
                     android:id="@+id/checkbox4"
                     android:layout_width="@dimen/dp_120"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/checkbox2"
-                    android:layout_alignRight="@+id/checkbox3"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/dp_70"
-                    android:layout_marginEnd="@dimen/dp_55"
-                    android:layout_marginRight="@dimen/dp_55"
-                    android:layout_marginBottom="@dimen/dp_m_3"
+                    android:layout_alignBottom="@id/checkbox3"
+                    android:layout_alignLeft="@id/checkbox2"
                     android:background="@drawable/bg_border"
                     android:text="活地图 " />
 
@@ -253,6 +246,7 @@
                     android:layout_height="@dimen/dp_70"
                     android:layout_below="@+id/checkbox4"
                     android:layout_alignLeft="@+id/checkbox1"
+                    android:layout_alignRight="@id/checkbox2"
                     android:layout_marginTop="@dimen/dp_15"
                     android:background="@drawable/bg_border">
 

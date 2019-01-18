@@ -1,18 +1,26 @@
 package com.clfsjkj.govcar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.clfsjkj.govcar.ItemAdapter.SelectedCarsAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
 import com.clfsjkj.govcar.bean.CarAndDriverBean;
+import com.kongzue.dialog.listener.OnMenuItemClickListener;
+import com.kongzue.dialog.v2.BottomMenu;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.kongzue.dialog.v2.Notification.SHOW_TIME_SHORT;
 
 public class DispatchCarsActivity extends BaseActivity {
     //需要派车页面
@@ -117,7 +127,7 @@ public class DispatchCarsActivity extends BaseActivity {
         bean.setCarNum("云A00006");
         bean.setDriverName("张三6");
         data.add(bean);
-        adapter = new SelectedCarsAdapter(mContext, data,true);//是否可删除，是
+        adapter = new SelectedCarsAdapter(mContext, data, true);//是否可删除，是
         recyclerViewSelected.setAdapter(adapter);
     }
 
@@ -127,15 +137,45 @@ public class DispatchCarsActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.ll_select:
                 //跳转到选择车辆页面
-                Intent it = new Intent(DispatchCarsActivity.this,SelectCarActivity.class);
+                Intent it = new Intent(DispatchCarsActivity.this, SelectCarActivity.class);
 //                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(it);;
+                startActivity(it);
+                ;
                 break;
             case R.id.btn_reject:
                 //下发车队
+                List<String> list = new ArrayList<>();
+                list.add("车队1");
+                list.add("车队2");
+                list.add("车队3");
+                BottomMenu.show((AppCompatActivity) mContext, list, new OnMenuItemClickListener() {
+                    @Override
+                    public void onClick(String text, int index) {
+                        Toast.makeText(mContext, "车队 " + text + " 被点击了", SHOW_TIME_SHORT).show();
+                    }
+                }, true);
                 break;
             case R.id.btn_pass:
                 //调接口传数据，派车成功
+                SelectDialog.show(mContext, "确认派车吗?", "", "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);
+                                startActivity(new Intent(DispatchCarsActivity.this, MainActivity.class));
+                                finish();
+                            }
+                        }).start();
+                    }
+                }, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(mContext, "您点击了取消按钮", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
         }
     }

@@ -35,13 +35,15 @@ public class CancelNoticeService extends Service {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
             Notification.Builder builder = new Notification.Builder(this);
             builder.setSmallIcon(R.mipmap.ic_launcher);
+//            builder.setContentTitle("GovCar");
+//            builder.setContentText("GovCar is runing...");
             startForeground(DaemonService.NOTICE_ID,builder.build());
             // 开启一条线程，去移除DaemonService弹出的通知
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // 延迟1s
-                    SystemClock.sleep(1000);
+                    // 延迟0.1s
+                    SystemClock.sleep(100);
                     // 取消CancelNoticeService的前台
                     stopForeground(true);
                     // 移除DaemonService弹出的通知

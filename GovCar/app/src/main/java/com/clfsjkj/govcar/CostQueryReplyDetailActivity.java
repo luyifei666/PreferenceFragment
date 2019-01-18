@@ -1,20 +1,27 @@
 package com.clfsjkj.govcar;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CostQueryReplyDetailActivity extends BaseActivity {
     //费用质疑回复详情
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.btn_car_apply)
+    Button btnCarApply;
     private Context mContext;
 
     @Override
@@ -36,6 +43,23 @@ public class CostQueryReplyDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();//返回
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_car_apply)
+    public void onViewClicked() {
+        SelectDialog.show(mContext, "提示", "确认提交？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1000);
+                        finish();
+                    }
+                }).start();
             }
         });
     }

@@ -146,6 +146,7 @@ public class ApprovalRecordListActivity extends BaseActivity implements BaseQuic
             public void onSimpleItemClick(final BaseQuickAdapter adapter, final View view, final int position) {
                 Intent it;
                 it = new Intent(ApprovalRecordListActivity.this, ApplayOrderDetailActivity.class);
+                it.putExtra("title", mTitle);
                 it.putExtra("isShowBtnGroup",false);
                 startActivity(it);
 

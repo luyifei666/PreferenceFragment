@@ -148,7 +148,7 @@ public class NeedCarBackListActivity extends BaseActivity implements BaseQuickAd
                 Intent it;
                 it = new Intent(NeedCarBackListActivity.this, CarBackActivity.class);
 //                it.putExtra("isShowBtnGroup",true);
-                it.putExtra("title","需要派车");
+                it.putExtra("title","归队详情");
                 startActivity(it);
 
             }

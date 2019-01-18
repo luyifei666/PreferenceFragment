@@ -1,20 +1,23 @@
 package com.clfsjkj.govcar.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.clfsjkj.govcar.FeedBackActivity;
+import com.clfsjkj.govcar.LoginActivity;
+import com.clfsjkj.govcar.MainActivity;
 import com.clfsjkj.govcar.MainApplication;
 import com.clfsjkj.govcar.R;
 import com.clfsjkj.govcar.TextSizeShowActivity;
@@ -22,6 +25,7 @@ import com.clfsjkj.govcar.base.BaseFragment;
 import com.clfsjkj.govcar.customerview.MySettingItemView;
 import com.clfsjkj.govcar.http.UpdateAppHttpUtil;
 import com.clfsjkj.govcar.utils.RxActivityTool;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
@@ -35,7 +39,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import q.rorbin.badgeview.QBadgeView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,6 +47,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class MeFragment extends BaseFragment {
 
+    @BindView(R.id.item_logout)
+    MySettingItemView itemLogout;
     private String mUpdateUrl1 = "https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json1.txt";
     Unbinder unbinder;
     @BindView(R.id.avatar)
@@ -210,7 +215,7 @@ public class MeFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.set_text_size, R.id.item_feedback, R.id.item_app_update, R.id.rl_item_avatar})
+    @OnClick({R.id.set_text_size, R.id.item_feedback, R.id.item_app_update, R.id.rl_item_avatar, R.id.item_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_item_avatar:
@@ -225,6 +230,15 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.item_app_update:
                 checkVersion();
+                break;
+            case R.id.item_logout:
+                SelectDialog.show(context, "提示", "真的要退出吗？", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(mContext, LoginActivity.class));
+                        getActivity().onBackPressed();//销毁自己
+                    }
+                });
                 break;
         }
     }

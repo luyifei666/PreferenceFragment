@@ -38,6 +38,9 @@ import com.clfsjkj.govcar.flowlayout.FlowLayoutAdapter;
 import com.clfsjkj.govcar.flowlayout.FlowLayoutScrollView;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.imageloader.SelectDialog;
+import com.clfsjkj.govcar.utils.KeyboardUtils;
+import com.clfsjkj.govcar.utils.StringUtil;
+import com.kongzue.dialog.v2.TipDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -61,6 +64,20 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     public static final String REQUEST_CODE_START = "999";
     public static final String REQUEST_CODE_PATH = "888";
     public static final String REQUEST_CODE_END = "777";
+    @BindView(R.id.et_car_user)
+    MClearEditText etCarUser;
+    @BindView(R.id.et_phone)
+    MClearEditText etPhone;
+    @BindView(R.id.et_num)
+    MClearEditText etNum;
+    @BindView(R.id.et_car_property)
+    MClearEditText etCarProperty;
+    @BindView(R.id.et_car_area)
+    MClearEditText etCarArea;
+    @BindView(R.id.et_car_reason)
+    MClearEditText etCarReason;
+    @BindView(R.id.et_car_remark)
+    MClearEditText etCarRemark;
 
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
@@ -535,6 +552,54 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
             case R.id.btn_car_apply:
                 String mStartTime = mTvStartTime.getText().toString();
                 String mBackTime = mTvBackTime.getText().toString();
+
+                if (StringUtil.isEmpty(etCarUser.getText().toString())) {
+                    TipDialog.show(mContext, "请输入用车人", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etCarUser.setFocusable(true);
+                    etCarUser.setFocusableInTouchMode(true);
+                    etCarUser.requestFocus();
+                    KeyboardUtils.showSoftInput(etCarUser);
+                } else if (StringUtil.isEmpty(etPhone.getText().toString())) {
+                    TipDialog.show(mContext, "请输入电话", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etPhone.setFocusable(true);
+                    etPhone.setFocusableInTouchMode(true);
+                    etPhone.requestFocus();
+                    KeyboardUtils.showSoftInput(etPhone);
+                } else if (StringUtil.isEmpty(etNum.getText().toString())) {
+                    TipDialog.show(mContext, "请输入用车人数", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etNum.setFocusable(true);
+                    etNum.setFocusableInTouchMode(true);
+                    etNum.requestFocus();
+                    KeyboardUtils.showSoftInput(etNum);
+                } else if (StringUtil.isEmpty(etCarProperty.getText().toString())) {
+                    TipDialog.show(mContext, "请输入用车性质", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etCarProperty.setFocusable(true);
+                    etCarProperty.setFocusableInTouchMode(true);
+                    etCarProperty.requestFocus();
+                    KeyboardUtils.showSoftInput(etCarProperty);
+                } else if (StringUtil.isEmpty(etCarArea.getText().toString())) {
+                    TipDialog.show(mContext, "请输入用车区域", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etCarArea.setFocusable(true);
+                    etCarArea.setFocusableInTouchMode(true);
+                    etCarArea.requestFocus();
+                    KeyboardUtils.showSoftInput(etCarArea);
+                } else if (StringUtil.isEmpty(etCarReason.getText().toString())) {
+                    TipDialog.show(mContext, "请输入用车事由", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etCarReason.setFocusable(true);
+                    etCarReason.setFocusableInTouchMode(true);
+                    etCarReason.requestFocus();
+                    KeyboardUtils.showSoftInput(etCarReason);
+                } else if (StringUtil.isEmpty(etCarReason.getText().toString())) {
+                    TipDialog.show(mContext, "请输入备注", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                    etCarReason.setFocusable(true);
+                    etCarReason.setFocusableInTouchMode(true);
+                    etCarReason.requestFocus();
+                    KeyboardUtils.showSoftInput(etCarReason);
+                } else if (StringUtil.isEmpty(mStartTime)) {
+                    TipDialog.show(mContext, "请选择出车时间", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                } else if (StringUtil.isEmpty(mBackTime)) {
+                    TipDialog.show(mContext, "请选择回车时间", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
+                }
                 if (needJudgeUseCarTime) {
                     mNowTime = getTime(new Date());
                     int result = mNowTime.compareTo(mStartTime);

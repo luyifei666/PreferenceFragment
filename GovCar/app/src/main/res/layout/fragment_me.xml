@@ -111,8 +111,8 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="283dp"
-                android:layout_toLeftOf="@id/iv_right_arrow01"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_alignParentLeft="true"
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
@@ -189,6 +189,30 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/lineColor" />
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_48"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/lineColor" />
+
+            <com.clfsjkj.govcar.customerview.MySettingItemView
+                android:id="@+id/item_logout"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/item_setting_selector"
+                app:setting_title="退出登陆" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/lineColor" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -1,7 +1,9 @@
 package com.clfsjkj.govcar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +77,7 @@ public class UserEvaluationActivity extends BaseActivity implements CompoundButt
         star.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Log.e("aaa","rating = " + rating + ",fromUser = " + fromUser);
+                Log.e("aaa", "rating = " + rating + ",fromUser = " + fromUser);
             }
         });
     }
@@ -92,6 +96,19 @@ public class UserEvaluationActivity extends BaseActivity implements CompoundButt
 
     @OnClick(R.id.btn_car_apply)
     public void onViewClicked() {
+        SelectDialog.show(mContext, "提示", "确认提交？", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1000);
+                        finish();
+                    }
+                }).start();
+            }
+        });
     }
 
     @Override

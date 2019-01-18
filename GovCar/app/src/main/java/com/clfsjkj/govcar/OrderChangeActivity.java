@@ -2,8 +2,10 @@ package com.clfsjkj.govcar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,11 +16,16 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.kongzue.dialog.listener.InputDialogOkButtonClickListener;
+import com.kongzue.dialog.v2.InputDialog;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -175,8 +182,32 @@ public class OrderChangeActivity extends BaseActivity {
                 pvTime.show(); //弹出自定义时间选择器
                 break;
             case R.id.btn_reject:
+                InputDialog.show(mContext, "请输入驳回信息", "", "确定", new InputDialogOkButtonClickListener() {
+                    @Override
+                    public void onClick(Dialog dialog, String inputText) {
+                        Toast.makeText(mContext, "您输入了：" + inputText, Toast.LENGTH_SHORT).show();
+                    }
+                }, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
                 break;
             case R.id.btn_pass:
+                SelectDialog.show(mContext, "确认提交？", "", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SystemClock.sleep(1000);
+                                finish();
+                            }
+                        }).start();
+                    }
+                });
                 break;
         }
     }
