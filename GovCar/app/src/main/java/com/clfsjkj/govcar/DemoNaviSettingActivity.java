@@ -15,6 +15,7 @@ import com.baidu.navisdk.adapter.BaiduNaviManagerFactory;
 import com.baidu.navisdk.comapi.routeguide.RouteGuideParams;
 import com.baidu.navisdk.comapi.setting.SettingParams;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +66,10 @@ public class DemoNaviSettingActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onsdk_activity_setting);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         initMyToolBar();
         setStatusBarFullTransparent();

@@ -64,16 +64,17 @@ import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.overlayutil.PoiOverlay;
 import com.clfsjkj.govcar.permission.DefaultRationale;
 import com.clfsjkj.govcar.permission.PermissionSetting;
+import com.clfsjkj.govcar.utils.MyOrientationListener;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,6 +148,10 @@ public class BaiduMapPoiActivity extends BaseActivity implements SensorEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baidu_map_poi);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         //动态权限
         mRationale = new DefaultRationale();
         mSetting = new PermissionSetting(this);

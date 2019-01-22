@@ -1,10 +1,12 @@
 /*
  * Copyright (C) 2018 Baidu, Inc. All Rights Reserved.
  */
-package com.clfsjkj.govcar;
+package com.clfsjkj.govcar.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+
+import com.clfsjkj.govcar.DemoNaviSettingActivity;
 
 public class NormalUtils {
 

@@ -1,4 +1,4 @@
-package com.clfsjkj.govcar;/*
+package com.clfsjkj.govcar.adapter;/*
  * Copyright (C) 2016 Baidu, Inc. All Rights Reserved.
  */
 

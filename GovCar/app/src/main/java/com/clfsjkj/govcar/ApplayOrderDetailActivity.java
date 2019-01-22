@@ -28,6 +28,7 @@ import com.clfsjkj.govcar.ItemAdapter.TimeLineAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
 import com.clfsjkj.govcar.bean.EnclosureBean;
 import com.clfsjkj.govcar.bean.TimeLineBean;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.utils.ToastUtils;
 import com.kevin.photo_browse.ImageBrowseIntent;
@@ -82,6 +83,10 @@ public class ApplayOrderDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applay_order_detail);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
         isShowBtnGroup = getIntent().getBooleanExtra("isShowBtnGroup", false);

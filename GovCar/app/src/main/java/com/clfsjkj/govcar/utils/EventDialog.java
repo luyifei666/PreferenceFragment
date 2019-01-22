@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018 Baidu, Inc. All Rights Reserved.
  */
-package com.clfsjkj.govcar;
+package com.clfsjkj.govcar.utils;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.clfsjkj.govcar.R;
 
 public class EventDialog extends Dialog {
 

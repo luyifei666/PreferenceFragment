@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 
@@ -29,6 +30,10 @@ public class CostQueryReplyDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost_query_reply_detail);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         initMyToolBar();
         setStatusBarFullTransparent();

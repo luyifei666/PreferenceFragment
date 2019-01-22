@@ -24,6 +24,7 @@ import com.clfsjkj.govcar.MainApplication;
 import com.clfsjkj.govcar.R;
 import com.clfsjkj.govcar.alltextsize.MessageSocket;
 import com.clfsjkj.govcar.alltextsize.RxBus;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.utils.RxActivityTool;
 
 import io.reactivex.Observable;
@@ -47,6 +48,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+//        //因为LoginActivity和MainActivity是不需要这个功能的，但是放在BaseActivity里无法取消这两个页面，所以只能单独放到每个Activity里了
+//        //创建侧滑关闭 Activity 控件
+//        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+//        //绑定 Activity
+//        mSlideBackLayout.bindActivity(this);
+        //解除绑定 Activity
+//        mSlideBackLayout.unbindActivity();
         RxActivityTool.addActivity(this);//将Activity全部加入进去，当退出APP时，结束所有的Activity
         observable = RxBus.getInstance().register(this.getClass().getSimpleName(), MessageSocket.class);
         observable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<MessageSocket>() {

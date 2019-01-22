@@ -22,6 +22,7 @@ import com.clfsjkj.govcar.ItemAdapter.DataServer;
 import com.clfsjkj.govcar.adapter.CustomLoadMoreView;
 import com.clfsjkj.govcar.adapter.PullToRefreshAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,10 @@ public class CostQueryReplyListActivity extends BaseActivity implements BaseQuic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost_query_reply_list);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
         initMyToolBar();

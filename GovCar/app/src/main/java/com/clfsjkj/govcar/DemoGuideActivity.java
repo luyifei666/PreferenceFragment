@@ -15,7 +15,7 @@ import com.baidu.navisdk.adapter.BaiduNaviManagerFactory;
 import com.baidu.navisdk.adapter.IBNRouteGuideManager;
 import com.baidu.navisdk.adapter.map.BNItemizedOverlay;
 import com.baidu.navisdk.adapter.map.BNOverlayItem;
-import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.utils.EventHandler;
 
 /**
  * 诱导界面

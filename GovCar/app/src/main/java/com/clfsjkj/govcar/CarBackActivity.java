@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
 
@@ -33,6 +34,10 @@ public class CarBackActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_back);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
 //        mTitle = getIntent().getStringExtra("title");
         initMyToolBar();

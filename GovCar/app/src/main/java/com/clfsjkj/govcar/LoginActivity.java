@@ -4,12 +4,14 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.utils.AndroidBug5497Workaround;
+import com.clfsjkj.govcar.utils.RxActivityTool;
 import com.clfsjkj.govcar.utils.RxAnimationTool;
 import com.clfsjkj.govcar.utils.RxBarTool;
 import com.clfsjkj.govcar.utils.RxKeyboardTool;
@@ -223,6 +227,21 @@ public class LoginActivity extends BaseActivity {
         return (activity.getWindow().getAttributes().flags &
                 WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN;
     }
+
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN
+                && event.getRepeatCount() == 0) {
+
+            finish();
+            //清空所有的Activity
+            RxActivityTool.AppExit(LoginActivity.this);
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
 
     @OnClick({R.id.iv_clean_phone, R.id.clean_password, R.id.iv_show_pwd, R.id.root, R.id.content})
     public void onViewClicked(View view) {

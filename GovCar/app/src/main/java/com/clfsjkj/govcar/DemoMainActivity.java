@@ -49,14 +49,13 @@ import com.baidu.navisdk.adapter.BaiduNaviManagerFactory;
 import com.baidu.navisdk.adapter.IBNRoutePlanManager;
 import com.baidu.navisdk.adapter.IBNTTSManager;
 import com.baidu.navisdk.adapter.IBaiduNaviManager;
+import com.clfsjkj.govcar.adapter.RouteLineAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.customerview.SlideRightViewDragHelper;
-import com.clfsjkj.govcar.overlayutil.BikingRouteOverlay;
 import com.clfsjkj.govcar.overlayutil.DrivingRouteOverlay;
-import com.clfsjkj.govcar.overlayutil.MassTransitRouteOverlay;
 import com.clfsjkj.govcar.overlayutil.OverlayManager;
-import com.clfsjkj.govcar.overlayutil.TransitRouteOverlay;
-import com.clfsjkj.govcar.overlayutil.WalkingRouteOverlay;
+import com.clfsjkj.govcar.utils.NormalUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -122,7 +121,10 @@ public class DemoMainActivity extends BaseActivity implements BaiduMap.OnMapClic
 
         setContentView(R.layout.normal_demo_activity_main);
         ButterKnife.bind(this);
-
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         initMyToolBar();
         showProgressDialog("正在加载中……");

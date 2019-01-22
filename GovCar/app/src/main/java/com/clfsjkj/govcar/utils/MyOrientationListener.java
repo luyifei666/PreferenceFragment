@@ -1,4 +1,4 @@
-package com.clfsjkj.govcar;
+package com.clfsjkj.govcar.utils;
 
 import android.content.Context;
 import android.hardware.Sensor;

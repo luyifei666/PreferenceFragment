@@ -34,6 +34,7 @@ import com.clfsjkj.govcar.adapter.ImagePickerAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
 import com.clfsjkj.govcar.bean.LocationBean;
 import com.clfsjkj.govcar.customerview.MClearEditText;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.flowlayout.FlowLayoutAdapter;
 import com.clfsjkj.govcar.flowlayout.FlowLayoutScrollView;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
@@ -133,6 +134,10 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_car);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         needJudgeUseCarTime = getIntent().getBooleanExtra("needJudgeUseCarTime", false);
         mTitle = getIntent().getStringExtra("title");

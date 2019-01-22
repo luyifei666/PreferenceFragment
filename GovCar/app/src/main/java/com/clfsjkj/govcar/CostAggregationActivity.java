@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.clfsjkj.govcar.ItemAdapter.MyExtendableListViewAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +30,10 @@ public class CostAggregationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost_aggregation);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
         initMyToolBar();

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018 Baidu, Inc. All Rights Reserved.
  */
-package com.clfsjkj.govcar;
+package com.clfsjkj.govcar.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.clfsjkj.govcar.adapter.MainFragmentAdapter;
 import com.clfsjkj.govcar.alltextsize.MessageSocket;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.http.UpdateAppHttpUtil;
 import com.clfsjkj.govcar.keepingappalive.receiver.ScreenReceiverUtil;
 import com.clfsjkj.govcar.keepingappalive.service.DaemonService;
@@ -302,29 +303,29 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            Intent home = new Intent(Intent.ACTION_MAIN);
-            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            home.addCategory(Intent.CATEGORY_HOME);
-            startActivity(home);
-            return true;
-        }
-//        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-//                && event.getAction() == KeyEvent.ACTION_DOWN
-//                && event.getRepeatCount() == 0) {
-//            // 重写键盘事件分发，onKeyDown方法某些情况下捕获不到，只能在这里写
-//            if ((System.currentTimeMillis() - exitTime) > 2000) {
-//                Snackbar snackbar = Snackbar.make(viewPager, "再按一次退出程序", Snackbar.LENGTH_SHORT);
-//                snackbar.getView().setBackgroundResource(R.color.colorPrimary);
-//                snackbar.show();
-//                exitTime = System.currentTimeMillis();
-//            } else {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN
+                && event.getRepeatCount() == 0) {
+            // 重写键盘事件分发，onKeyDown方法某些情况下捕获不到，只能在这里写
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Snackbar snackbar = Snackbar.make(viewPager, "再按一次退出程序", Snackbar.LENGTH_SHORT);
+                snackbar.getView().setBackgroundResource(R.color.colorPrimary);
+                snackbar.show();
+                exitTime = System.currentTimeMillis();
+            } else {
 //                finish();
 //                //清空所有的Activity
 //                RxActivityTool.AppExit(MainActivity.this);
-//            }
-//            return true;
-//        }
+                if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+                    Intent home = new Intent(Intent.ACTION_MAIN);
+                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    home.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(home);
+                    return true;
+                }
+            }
+            return true;
+        }
         return super.dispatchKeyEvent(event);
     }
 

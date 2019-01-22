@@ -13,6 +13,7 @@ import com.clfsjkj.govcar.alltextsize.MessageSocket;
 import com.clfsjkj.govcar.alltextsize.RxBus;
 import com.clfsjkj.govcar.base.BaseActivity;
 import com.clfsjkj.govcar.customerview.FontSliderBar;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.utils.DisplayUtils;
 
 import butterknife.BindView;
@@ -48,6 +49,10 @@ public class TextSizeShowActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_textsizeshow);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         initMyToolBar();
         setStatusBarFullTransparent();
         setFitSystemWindow(true);

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.clfsjkj.govcar.ItemAdapter.SelectedCarsAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
 import com.clfsjkj.govcar.bean.CarAndDriverBean;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.v2.BottomMenu;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -57,6 +58,10 @@ public class DispatchCarsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dispatch_car);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
         isShowBtnGroup = getIntent().getBooleanExtra("isShowBtnGroup", false);

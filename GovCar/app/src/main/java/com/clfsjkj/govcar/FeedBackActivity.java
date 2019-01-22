@@ -1,8 +1,10 @@
 package com.clfsjkj.govcar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,9 +13,10 @@ import android.widget.AdapterView;
 
 import com.clfsjkj.govcar.adapter.ImagePickerAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
-import com.clfsjkj.govcar.bean.LocationBean;
+import com.clfsjkj.govcar.customerview.SlideBackLayout;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.imageloader.SelectDialog;
+import com.kongzue.dialog.v2.TipDialog;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -25,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FeedBackActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
 
@@ -46,6 +50,10 @@ public class FeedBackActivity extends BaseActivity implements ImagePickerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
         ButterKnife.bind(this);
+        //创建侧滑关闭 Activity 控件
+        SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
+        //绑定 Activity
+        mSlideBackLayout.bindActivity(this);
         mContext = this;
         initMyToolBar();
         initWiget();
@@ -195,4 +203,20 @@ public class FeedBackActivity extends BaseActivity implements ImagePickerAdapter
         }
     }
 
+    @OnClick(R.id.btn_car_apply)
+    public void onViewClicked() {
+        com.kongzue.dialog.v2.SelectDialog.show(mContext, "确认提交？", "", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                TipDialog.show(mContext, "完成", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_FINISH);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1000);
+                        finish();
+                    }
+                }).start();
+            }
+        });
+    }
 }
