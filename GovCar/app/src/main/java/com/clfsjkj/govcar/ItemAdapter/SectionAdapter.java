@@ -26,8 +26,11 @@ public class SectionAdapter extends BaseSectionQuickAdapter<MySection, BaseViewH
      * @param data             A new list is created out of this one to avoid mutable list
      */
 
-    public SectionAdapter(int layoutResId, int sectionHeadResId, List data) {
+    private Context context;
+
+    public SectionAdapter(int layoutResId, int sectionHeadResId, List data,Context context) {
         super(layoutResId, sectionHeadResId, data);
+        this.context = context;
     }
 
     @Override
@@ -40,7 +43,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<MySection, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, MySection item) {
-        mContext = MainApplication.getContext();
+//        mContext = MainApplication.getContext();
+        mContext = context;
         Video video = (Video) item.t;
         Glide.with(mContext).
                 load(video.getImg())

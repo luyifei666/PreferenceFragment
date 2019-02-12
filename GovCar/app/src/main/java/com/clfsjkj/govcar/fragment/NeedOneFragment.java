@@ -91,13 +91,13 @@ public class NeedOneFragment extends BaseFragment {
         mRecyclerView.setAdapter(mAnimationAdapter);
 
 //        -------------------------------------上拉加载---------------------------------------------------------
-//        mAnimationAdapter.setUpFetchEnable(true);
-//        mAnimationAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
-//            @Override
-//            public void onUpFetch() {
-//                startUpFetch();
-//            }
-//        });
+        mAnimationAdapter.setUpFetchEnable(true);
+        mAnimationAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
+            @Override
+            public void onUpFetch() {
+                startUpFetch();
+            }
+        });
 
 //        -------------------------------------上拉加载---------------------------------------------------------
     }

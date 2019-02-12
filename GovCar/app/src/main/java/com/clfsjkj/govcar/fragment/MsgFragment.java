@@ -56,7 +56,7 @@ public class MsgFragment extends BaseFragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         mData = DataServer.getSampleData();
-        SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData);
+        SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData,getActivity());
 
         sectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

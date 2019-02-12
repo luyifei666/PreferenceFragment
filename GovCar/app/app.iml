@@ -187,5 +187,9 @@
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.1.0@jar" level="project" />
     <orderEntry type="module" module-name="photo-browse" />
     <orderEntry type="module" module-name="imagepicker" />
+    <orderEntry type="module" module-name="photo-browse" />
+    <orderEntry type="module" module-name="imagepicker" />
+    <orderEntry type="module" module-name="photo-browse" />
+    <orderEntry type="module" module-name="imagepicker" />
   </component>
 </module>
