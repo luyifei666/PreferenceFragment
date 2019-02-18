@@ -198,5 +198,7 @@
     <orderEntry type="module" module-name="imagepicker" />
     <orderEntry type="module" module-name="photo-browse" />
     <orderEntry type="module" module-name="imagepicker" />
+    <orderEntry type="module" module-name="photo-browse" />
+    <orderEntry type="module" module-name="imagepicker" />
   </component>
 </module>

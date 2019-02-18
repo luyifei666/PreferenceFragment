@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -30,8 +31,10 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.clfsjkj.govcar.adapter.ChooseCarAdpter;
 import com.clfsjkj.govcar.adapter.ImagePickerAdapter;
 import com.clfsjkj.govcar.base.BaseActivity;
+import com.clfsjkj.govcar.bean.ChooseCarBean;
 import com.clfsjkj.govcar.bean.LocationBean;
 import com.clfsjkj.govcar.customerview.MClearEditText;
 import com.clfsjkj.govcar.customerview.SlideBackLayout;
@@ -65,26 +68,6 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     public static final String REQUEST_CODE_START = "999";
     public static final String REQUEST_CODE_PATH = "888";
     public static final String REQUEST_CODE_END = "777";
-    private ImagePickerAdapter adapter;
-    private ArrayList<ImageItem> selImageList; //当前选择的所有图片
-    private int maxImgCount = 8;               //允许选择图片最大数
-    private String mTitle;
-    private MClearEditText mEditText;
-    private TextView mTextView;
-    private ImageView mImageViewAdd, mImageViewDel;
-    private Context mContext;
-    private List<String> mSpinnerAreaList = new ArrayList<String>();
-    private ArrayAdapter<String> mSpinnerAdapter;
-    private String mSearchLat;//纬度
-    private String mSearchLon;//经度
-    private String addr;//地名
-    private String addrDes;//地址
-    private TimePickerView pvTime;
-    private boolean needJudgeUseCarTime;//是否需要判断用车时间与此刻的关系（正常申请需要判断、补录订单不需要）
-    private String mNowTime;//当前时间
-    private List<String> flowLayoutList;//流式布局的list
-    private FlowLayoutAdapter<String> flowLayoutAdapter;//流式布局的adapter
-    private List<LocationBean> pathList;//途径地的list（需上传）
     @BindView(R.id.et_car_user)
     MClearEditText etCarUser;
     @BindView(R.id.et_phone)
@@ -107,6 +90,8 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     CheckBox mCkSuixing;
     @BindView(R.id.spinner_area)
     Spinner mSpinnerArea;
+    @BindView(R.id.rv_select_car)
+    RecyclerView rvSelectCar;
     @BindView(R.id.btn_car_start)
     Button mBtnCarStart;
     @BindView(R.id.btn_car_path)
@@ -125,6 +110,29 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     TextView mTvStartTime;
     @BindView(R.id.tv_back_time)
     TextView mTvBackTime;
+    private ImagePickerAdapter adapter;
+    private ArrayList<ImageItem> selImageList; //当前选择的所有图片
+    private int maxImgCount = 8;               //允许选择图片最大数
+    private String mTitle;
+    private MClearEditText mEditText;
+    private TextView mTextView;
+    private ImageView mImageViewAdd, mImageViewDel;
+    private Context mContext;
+    private List<String> mSpinnerAreaList = new ArrayList<String>();
+    private ArrayAdapter<String> mSpinnerAdapter;
+    private String mSearchLat;//纬度
+    private String mSearchLon;//经度
+    private String addr;//地名
+    private String addrDes;//地址
+    private TimePickerView pvTime;
+    private boolean needJudgeUseCarTime;//是否需要判断用车时间与此刻的关系（正常申请需要判断、补录订单不需要）
+    private String mNowTime;//当前时间
+    private List<String> flowLayoutList;//流式布局的list
+    private FlowLayoutAdapter<String> flowLayoutAdapter;//流式布局的adapter
+    private List<LocationBean> pathList;//途径地的list（需上传）
+    private ChooseCarAdpter chooseCarAdpter;
+    private List<ChooseCarBean> chooseCarBeanList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,9 +230,6 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
         //解决数据加载不完的问题
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-        //解决数据加载完成后, 没有停留在顶部的问题
-//        mRecyclerView.setFocusable(false);
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
         mCkSuixing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -256,9 +261,34 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-
+        //选择车辆类型及数目的RV
+        chooseCarBeanList = new ArrayList<>();
+        ChooseCarBean bean;
+        bean = new ChooseCarBean();
+        bean.setCarName("越野车");
+        bean.setCarType(1);
+        chooseCarBeanList.add(bean);
+        bean = new ChooseCarBean();
+        bean.setCarName("轿车");
+        bean.setCarType(2);
+        chooseCarBeanList.add(bean);
+        bean = new ChooseCarBean();
+        bean.setCarName("中巴车");
+        bean.setCarType(3);
+        chooseCarBeanList.add(bean);
+        bean = new ChooseCarBean();
+        bean.setCarName("大巴车");
+        bean.setCarType(4);
+        chooseCarBeanList.add(bean);
+        bean = new ChooseCarBean();
+        bean.setCarName("特种技术车");
+        bean.setCarType(5);
+        chooseCarBeanList.add(bean);
+        chooseCarAdpter = new ChooseCarAdpter(R.layout.layout_choose_car,chooseCarBeanList);
+        rvSelectCar.setLayoutManager(new LinearLayoutManager(this));
+        rvSelectCar.setNestedScrollingEnabled(false);
+        rvSelectCar.setHasFixedSize(true);
+        rvSelectCar.setAdapter(chooseCarAdpter);
     }
 
     private SelectDialog showDialog(SelectDialog.SelectDialogListener listener, List<String> names) {
@@ -639,6 +669,12 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
                     Log.e("aaa", "遍历pathList的数据  getLocName = " + pathList.get(i).getLocName());
                     Log.e("aaa", "遍历pathList的数据  getLatitude = " + pathList.get(i).getLatitude());
                     Log.e("aaa", "遍历pathList的数据  getLongitude = " + pathList.get(i).getLongitude());
+                }
+
+                for (int i = 0; i < chooseCarBeanList.size(); i++) {
+                    Log.e("aaa", "chooseCarBeanList  getCarName = " + chooseCarBeanList.get(i).getCarName());
+                    Log.e("aaa", "chooseCarBeanList  getCarType = " + chooseCarBeanList.get(i).getCarType());
+                    Log.e("aaa", "chooseCarBeanList  getNeedNum = " + chooseCarBeanList.get(i).getNeedNum());
                 }
 
                 break;

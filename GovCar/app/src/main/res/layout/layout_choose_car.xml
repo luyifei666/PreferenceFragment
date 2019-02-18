@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/dp_5"
+    android:layout_marginRight="@dimen/dp_5"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/item_bg"
+    card_view:cardCornerRadius="@dimen/dp_4"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/animation_img1" />
+
+        <TextView
+            android:id="@+id/car_type_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/img"
+            android:elevation="@dimen/dp_10"
+            android:padding="@dimen/dp_2"
+            android:text="车辆类型："
+            android:textColorHighlight="@color/black"
+            android:textSize="@dimen/sp_12"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/car_type"
+            style="@style/tweetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/car_type_des"
+            android:elevation="@dimen/dp_10"
+            android:padding="@dimen/dp_2"
+            android:text="越野车"
+            android:textColorHighlight="@color/black"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/car_num_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/car_type_des"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toRightOf="@id/img"
+            android:elevation="@dimen/dp_10"
+            android:padding="@dimen/dp_2"
+            android:text="所需数目："
+            android:textColorHighlight="@color/black"
+            android:textSize="@dimen/sp_12"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/car_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/car_type_des"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_toRightOf="@id/car_num_des"
+            android:hint="0"
+            android:inputType="number"
+            android:minWidth="@dimen/dp_72"
+            android:padding="@dimen/dp_2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_14" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
