@@ -65,21 +65,6 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     public static final String REQUEST_CODE_START = "999";
     public static final String REQUEST_CODE_PATH = "888";
     public static final String REQUEST_CODE_END = "777";
-    @BindView(R.id.et_car_user)
-    MClearEditText etCarUser;
-    @BindView(R.id.et_phone)
-    MClearEditText etPhone;
-    @BindView(R.id.et_num)
-    MClearEditText etNum;
-    @BindView(R.id.et_car_property)
-    MClearEditText etCarProperty;
-    @BindView(R.id.et_car_area)
-    MClearEditText etCarArea;
-    @BindView(R.id.et_car_reason)
-    MClearEditText etCarReason;
-    @BindView(R.id.et_car_remark)
-    MClearEditText etCarRemark;
-
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
@@ -88,7 +73,7 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     private TextView mTextView;
     private ImageView mImageViewAdd, mImageViewDel;
     private Context mContext;
-    private List<String> mSpinnerCarList = new ArrayList<String>();
+    private List<String> mSpinnerAreaList = new ArrayList<String>();
     private ArrayAdapter<String> mSpinnerAdapter;
     private String mSearchLat;//纬度
     private String mSearchLon;//经度
@@ -100,6 +85,18 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     private List<String> flowLayoutList;//流式布局的list
     private FlowLayoutAdapter<String> flowLayoutAdapter;//流式布局的adapter
     private List<LocationBean> pathList;//途径地的list（需上传）
+    @BindView(R.id.et_car_user)
+    MClearEditText etCarUser;
+    @BindView(R.id.et_phone)
+    MClearEditText etPhone;
+    @BindView(R.id.et_num)
+    MClearEditText etNum;
+    @BindView(R.id.et_car_property)
+    MClearEditText etCarProperty;
+    @BindView(R.id.et_car_reason)
+    MClearEditText etCarReason;
+    @BindView(R.id.et_car_remark)
+    MClearEditText etCarRemark;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.recyclerView)
@@ -108,8 +105,8 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
     LinearLayout mCustomerLl;
     @BindView(R.id.ck_suixing)
     CheckBox mCkSuixing;
-    @BindView(R.id.spinner_car)
-    Spinner mSpinnerCar;
+    @BindView(R.id.spinner_area)
+    Spinner mSpinnerArea;
     @BindView(R.id.btn_car_start)
     Button mBtnCarStart;
     @BindView(R.id.btn_car_path)
@@ -138,6 +135,8 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
         SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
         //绑定 Activity
         mSlideBackLayout.bindActivity(this);
+        //mSlideBackLayout与toolbar会冲突，这里解决
+        mSlideBackLayout.addNotInterceptView(mToolbar);
         mContext = this;
         needJudgeUseCarTime = getIntent().getBooleanExtra("needJudgeUseCarTime", false);
         mTitle = getIntent().getStringExtra("title");
@@ -238,16 +237,16 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
             }
         });
 
-        mSpinnerCar.setGravity(Gravity.CENTER);//居中
-        mSpinnerCarList.add("请选择");
-        mSpinnerCarList.add("越野车");
-        mSpinnerCarList.add("轿车");
-        mSpinnerCarList.add("商务车");
-        mSpinnerCarList.add("大客车");
-        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mSpinnerCarList);
+        mSpinnerArea.setGravity(Gravity.CENTER);//居中
+        mSpinnerAreaList.add("区域外");
+        mSpinnerAreaList.add("区域内");
+        mSpinnerAreaList.add("省内市外");
+        mSpinnerAreaList.add("市内");
+        mSpinnerAreaList.add("省外");
+        mSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mSpinnerAreaList);
         mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerCar.setAdapter(mSpinnerAdapter);
-        mSpinnerCar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinnerArea.setAdapter(mSpinnerAdapter);
+        mSpinnerArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -257,6 +256,8 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
 
     }
 
@@ -582,12 +583,6 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
                     etCarProperty.setFocusableInTouchMode(true);
                     etCarProperty.requestFocus();
                     KeyboardUtils.showSoftInput(etCarProperty);
-                } else if (StringUtil.isEmpty(etCarArea.getText().toString())) {
-                    TipDialog.show(mContext, "请输入用车区域", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
-                    etCarArea.setFocusable(true);
-                    etCarArea.setFocusableInTouchMode(true);
-                    etCarArea.requestFocus();
-                    KeyboardUtils.showSoftInput(etCarArea);
                 } else if (StringUtil.isEmpty(etCarReason.getText().toString())) {
                     TipDialog.show(mContext, "请输入用车事由", TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_WARNING);
                     etCarReason.setFocusable(true);

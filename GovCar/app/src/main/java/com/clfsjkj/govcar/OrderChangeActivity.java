@@ -76,6 +76,8 @@ public class OrderChangeActivity extends BaseActivity {
         SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
         //绑定 Activity
         mSlideBackLayout.bindActivity(this);
+        //mSlideBackLayout与toolbar会冲突，这里解决
+        mSlideBackLayout.addNotInterceptView(mToolbar);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
 //        mTitle = getIntent().getStringExtra("title");

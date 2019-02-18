@@ -57,6 +57,8 @@ public class NeedCarBackListActivity extends BaseActivity implements BaseQuickAd
         SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
         //绑定 Activity
         mSlideBackLayout.bindActivity(this);
+        //mSlideBackLayout与toolbar会冲突，这里解决
+        mSlideBackLayout.addNotInterceptView(mToolbar);
         mContext = this;
         mTitle = getIntent().getStringExtra("title");
         mSwipeLayout.setOnRefreshListener(this);

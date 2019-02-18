@@ -230,46 +230,6 @@
                 android:padding="@dimen/dp_4">
 
                 <TextView
-                    android:id="@+id/tv_car_select"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_40"
-                    android:gravity="left"
-                    android:text="选择车辆"
-                    android:textSize="@dimen/sp_13" />
-
-                <RelativeLayout
-                    android:id="@+id/rl_car_select"
-                    android:layout_width="@dimen/dp_270"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:layout_toRightOf="@id/tv_car_select"
-                    android:background="@drawable/search_bg">
-
-                    <Spinner
-                        android:id="@+id/spinner_car"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:background="@null"
-                        android:hint="请选择车辆"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textSize="@dimen/sp_13" />
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_4">
-
-                <TextView
                     android:id="@+id/tv_car_area"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
@@ -288,14 +248,54 @@
                     android:layout_toRightOf="@id/tv_car_area"
                     android:background="@drawable/search_bg">
 
-                    <com.clfsjkj.govcar.customerview.MClearEditText
-                        android:id="@+id/et_car_area"
+                    <Spinner
+                        android:id="@+id/spinner_area"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginRight="@dimen/dp_10"
                         android:background="@null"
                         android:hint="请选择用车区域"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="@dimen/sp_13" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_4">
+
+                <TextView
+                    android:id="@+id/tv_car_select"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:gravity="left"
+                    android:text="选择车辆"
+                    android:textSize="@dimen/sp_13" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_car_select"
+                    android:layout_width="@dimen/dp_270"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_toRightOf="@id/tv_car_select"
+                    android:background="@drawable/search_bg">
+
+                    <com.clfsjkj.govcar.customerview.MClearEditText
+                        android:id="@+id/et_car_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:background="@null"
+                        android:hint="请选择车辆类型"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"

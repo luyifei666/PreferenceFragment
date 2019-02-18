@@ -152,6 +152,8 @@ public class BaiduMapPoiActivity extends BaseActivity implements SensorEventList
         SlideBackLayout mSlideBackLayout = new SlideBackLayout(this);
         //绑定 Activity
         mSlideBackLayout.bindActivity(this);
+        //mSlideBackLayout与toolbar会冲突，这里解决
+        mSlideBackLayout.addNotInterceptView(mBtnBack);
         //动态权限
         mRationale = new DefaultRationale();
         mSetting = new PermissionSetting(this);
