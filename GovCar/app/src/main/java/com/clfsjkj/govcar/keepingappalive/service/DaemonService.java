@@ -36,19 +36,19 @@ public class DaemonService extends Service {
         if(Contants.DEBUG)
             Log.d(TAG,"DaemonService---->onCreate被调用，启动前台service");
         //如果API大于18，需要弹出一个可见通知
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
-            Notification.Builder builder = new Notification.Builder(this);
-            builder.setSmallIcon(R.mipmap.ic_launcher);
-            builder.setContentTitle("KeepAppAlive");
-            builder.setContentText("DaemonService is runing...");
-            startForeground(NOTICE_ID,builder.build());
-            // 如果觉得常驻通知栏体验不好
-            // 可以通过启动CancelNoticeService，将通知移除，oom_adj值不变
-            Intent intent = new Intent(this,CancelNoticeService.class);
-            startService(intent);
-        }else{
-            startForeground(NOTICE_ID,new Notification());
-        }
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
+//            Notification.Builder builder = new Notification.Builder(this);
+//            builder.setSmallIcon(R.mipmap.ic_launcher);
+//            builder.setContentTitle("KeepAppAlive");
+//            builder.setContentText("DaemonService is runing...");
+//            startForeground(NOTICE_ID,builder.build());
+//            // 如果觉得常驻通知栏体验不好
+//            // 可以通过启动CancelNoticeService，将通知移除，oom_adj值不变
+//            Intent intent = new Intent(this,CancelNoticeService.class);
+//            startService(intent);
+//        }else{
+//            startForeground(NOTICE_ID,new Notification());
+//        }
     }
 
     @Override

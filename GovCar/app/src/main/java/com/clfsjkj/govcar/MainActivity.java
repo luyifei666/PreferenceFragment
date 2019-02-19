@@ -49,11 +49,8 @@ import q.rorbin.badgeview.QBadgeView;
  */
 public class MainActivity extends BaseActivity {
 
-    //    @BindView(R.id.toolbar)
-//    Toolbar mToolbar;
     private String mUpdateUrl1 = "https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json1.txt";
     private Context context;
-    private NotifyUtil notifyUtils;
     /**
      * 菜单标题
      */
@@ -68,21 +65,10 @@ public class MainActivity extends BaseActivity {
     ViewPager viewPager;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-
-    /**
-     * 页卡适配器
-     */
     private PagerAdapter adapter;
-    /**
-     * 退出时间
-     */
     private long exitTime;
-    /**
-     * 动态权限
-     */
     private Rationale mRationale;
     private PermissionSetting mSetting;
-
     /**
      * keepingappalive
      */
@@ -118,6 +104,7 @@ public class MainActivity extends BaseActivity {
         }
     };
     private String TAG = "GovCar";
+    private String hasNews = "3";//0、1、2、3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +113,6 @@ public class MainActivity extends BaseActivity {
         dissmissProgressDialog();
         ButterKnife.bind(this);
         context = this;
-        initMyToolBar();
         setStatusBarFullTransparent();
         setFitSystemWindow(true);
         // 初始化页卡
@@ -152,18 +138,6 @@ public class MainActivity extends BaseActivity {
 //        startPlayMusicService();
         //APP版本更新检查
 //        checkVersion();
-    }
-
-    private void initMyToolBar() {
-//        initToolBar(mToolbar, "GovCar");
-//        Button rightBtnSearch = (Button) mToolbar.findViewById(R.id.right_btn);
-//        rightBtnSearch.setVisibility(View.VISIBLE);
-//        rightBtnSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                startActivity(new Intent(MainActivity.this, SearchActivity.class));
-//            }
-//        });
     }
 
     private void checkVersion() {
@@ -267,11 +241,12 @@ public class MainActivity extends BaseActivity {
             imgTab.setImageResource(tabImgs[i]);
 
             //-----------------------------------------------------可在这里设置未读消息提示-----------------------------------------------------------------------
-            new QBadgeView(this).bindTarget(imgTab)
-                    .setBadgeText("").setBadgeTextColor(0xffffffff)
-//                    .setGravityOffset((float)-0.5, (float)-0.5, true)
-                    .setBadgePadding(4, true)
-                    .setBadgeGravity(Gravity.TOP | Gravity.END).setBadgeBackgroundColor(0xffe51c23);
+            if (hasNews.contains(String.valueOf(i))) {
+                new QBadgeView(this).bindTarget(imgTab)
+                        .setBadgeText("").setBadgeTextColor(0xffffffff)
+                        .setBadgePadding(4, true)
+                        .setBadgeGravity(Gravity.TOP | Gravity.END).setBadgeBackgroundColor(0xffe51c23);
+            }
             tabLayout.addTab(tab);
         }
     }

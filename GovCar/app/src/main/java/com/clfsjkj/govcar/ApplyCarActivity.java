@@ -1,6 +1,7 @@
 package com.clfsjkj.govcar;
 
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +44,7 @@ import com.clfsjkj.govcar.flowlayout.FlowLayoutScrollView;
 import com.clfsjkj.govcar.imageloader.GlideImageLoader;
 import com.clfsjkj.govcar.imageloader.SelectDialog;
 import com.clfsjkj.govcar.utils.KeyboardUtils;
+import com.clfsjkj.govcar.utils.NotifyUtil;
 import com.clfsjkj.govcar.utils.StringUtil;
 import com.kongzue.dialog.v2.TipDialog;
 import com.lzy.imagepicker.ImagePicker;
@@ -284,7 +286,7 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
         bean.setCarName("特种技术车");
         bean.setCarType(5);
         chooseCarBeanList.add(bean);
-        chooseCarAdpter = new ChooseCarAdpter(R.layout.layout_choose_car,chooseCarBeanList);
+        chooseCarAdpter = new ChooseCarAdpter(R.layout.layout_choose_car, chooseCarBeanList);
         rvSelectCar.setLayoutManager(new LinearLayoutManager(this));
         rvSelectCar.setNestedScrollingEnabled(false);
         rvSelectCar.setHasFixedSize(true);
@@ -676,6 +678,11 @@ public class ApplyCarActivity extends BaseActivity implements ImagePickerAdapter
                     Log.e("aaa", "chooseCarBeanList  getCarType = " + chooseCarBeanList.get(i).getCarType());
                     Log.e("aaa", "chooseCarBeanList  getNeedNum = " + chooseCarBeanList.get(i).getNeedNum());
                 }
+
+                NotifyUtil notifyUtil = new NotifyUtil(mContext, 1001);
+                Intent notiIntent = new Intent(mContext, MainActivity.class);
+                PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notiIntent, 0);//当点击消息时就会向系统发送openintent意图
+                notifyUtil.notify_normail_moreline(contentIntent , R.mipmap.ic_launcher, "申请用车", "申请用车2", "您申请的订单号123456789已经完成", true, true, false);
 
                 break;
         }

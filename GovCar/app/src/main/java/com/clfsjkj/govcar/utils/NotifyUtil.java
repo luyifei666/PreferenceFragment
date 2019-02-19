@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -103,6 +104,7 @@ public class NotifyUtil {
      * @param smallIcon
      * @param ticker
      */
+    @SuppressLint("WrongConstant")
     private void setBuilder(PendingIntent pendingIntent, int smallIcon, String ticker, boolean sound, boolean vibrate, boolean lights) {
         nBuilder = new Notification.Builder(mContext);
         // 如果当前Activity启动在前台，则不开启新的Activity。
@@ -228,7 +230,7 @@ public class NotifyUtil {
      */
     public void notify_normail_moreline(PendingIntent pendingIntent, int smallIcon, String ticker,
                                         String title, String content, boolean sound, boolean vibrate, boolean lights) {
-
+        Log.e("aaa","进notify_normail_moreline了");
         final int sdk = Build.VERSION.SDK_INT;
         if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
             notify_normal_singline(pendingIntent, smallIcon, ticker, title, content, sound, vibrate, lights);

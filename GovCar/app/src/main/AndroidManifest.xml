@@ -31,6 +31,9 @@
     <!-- //允许sd卡写权限，需写入地图数据，禁用后无法显示地图 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
     <!-- 打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
